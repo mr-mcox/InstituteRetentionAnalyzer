@@ -42,3 +42,7 @@ def test_week_uses_history_timestamp(institute_start_date_df):
 						})
 	result = add_institute_week(df, institute_start_date_df)
 	assert(result.set_index('pid').loc[1,'week']==1)
+
+def test_date_to_institute_week(institute_start_date_df):
+	date = datetime.datetime(2014,6,9)
+	assert date_to_institute_week(institute_start_date_df,'Atlanta Institute', date) == 2

@@ -23,3 +23,11 @@ def timedelta_to_days(delta):
 		return np.NaN
 	else:
 		return math.floor(delta.astype('timedelta64[D]').item().days/7) + 1
+
+def date_to_institute_week(institute_start_date_df, institute, date):
+	assert 'institute' in institute_start_date_df.columns
+	assert 'start_date' in institute_start_date_df.columns
+	start_map = institute_start_date_df.set_index('institute')
+	assert start_map.index.isin([institute]).any()
+	assert isinstance(date,datetime)
+	return math.floor((date - start_map.loc[institute,'start_date']).days/7) + 1
