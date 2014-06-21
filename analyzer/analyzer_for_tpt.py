@@ -106,7 +106,7 @@ class TPTRetention(object):
 			if next_pid == current_pid:
 				if df.loc[cur_index,'is_transfer_out']:
 					# next_index_delta = 2
-					end_week = df.loc[cur_index,'week']
+					end_week = df.loc[cur_index,'week'] - 1
 				else:
 					df2 = df.reset_index()
 					assert False, 'Somehow there are multiple CM records in a row without a transfer: ' + str(df2.ix[df2.pid == current_pid,:])
@@ -117,4 +117,11 @@ class TPTRetention(object):
 		self.cm_institute_boundaries = pd.DataFrame.from_records(boundary_records, columns =['pid','institute','start_week','end_week'])
 		return self
 
-
+	def create_active_cms_by_week(self):
+		if not hasattr(self,'cm_institute_boundaries'):
+			self.create_cm_institute_boundaries()
+		all_cm_records = []
+		df = self.cm_institute_boundaries
+		for idx in df.index:
+			all_cm_records = all_cm_records + [(df.loc[idx,'pid'], df.loc[idx,'institute'],week + df.loc[idx,'start_week']) for week in range(df.loc[idx,'end_week'] - df.loc[idx,'start_week'] + 1)]
+		self.active_cms_by_week = pd.DataFrame.from_records(all_cm_records,columns=['pid','institute','week'])

@@ -71,6 +71,16 @@ def tpt_analyzer_with_one_cm_transfer(institute_start_date_df):
 									})
 	return analyzer
 
+@pytest.fixture
+def tpt_analyzer_with_cm_boundary():
+	analyzer = TPTRetention()
+	boundary_records = [
+		(1,'Atlanta',0,4),
+		(1,'Chicago',2,3),
+		(2,'Chicago',0,5),
+	]
+	analyzer.cm_institute_boundaries = pd.DataFrame.from_records(boundary_records,columns=['pid','institute','start_week','end_week'])
+	return analyzer
 
 def test_exit_by_institute_and_week(empty_tpt_analyzer):
 		analyzer = empty_tpt_analyzer
@@ -181,7 +191,7 @@ def test_cm_institute_boundaries_with_first_record_transfer_out(tpt_analyzer_wit
 	analyzer.create_cm_institute_boundaries()
 	df = analyzer.cm_institute_boundaries
 	df = df.set_index(['pid','institute','start_week','end_week'])
-	assert(df.index.isin([(1,'Atlanta',0,4)]).sum()==1)
+	assert(df.index.isin([(1,'Atlanta',0,3)]).sum()==1)
 
 def test_cm_institute_boundaries_with_transfer_in(tpt_analyzer_with_institute_transfer):
 	analyzer = tpt_analyzer_with_institute_transfer
@@ -213,6 +223,18 @@ def test_cm_institute_boundaries_for_transfer_and_resignation(tpt_analyzer_with_
 	df = analyzer.cm_institute_boundaries
 	df = df.set_index(['pid','institute','start_week','end_week'])
 	print(df)
-	assert(df.index.isin([(1,'Atlanta',0,4)]).sum()==1)
+	assert(df.index.isin([(1,'Atlanta',0,3)]).sum()==1)
 	assert(df.index.isin([(1,'Chicago',2,3)]).sum()==1)
+
+def test_create_weeks_active(tpt_analyzer_with_cm_boundary):
+	analyzer = tpt_analyzer_with_cm_boundary
+	analyzer.create_active_cms_by_week()
+	df = analyzer.active_cms_by_week.set_index(['pid','institute']).sortlevel()
+	print(df)
+	assert(df.index.isin([(1,'Atlanta')]).sum()==5)
+	assert(df.index.isin([(1,'Chicago')]).sum()==2)
+	assert(df.index.isin([(2,'Chicago')]).sum()==6)
+	df = analyzer.active_cms_by_week.set_index(['pid','institute','week']).sortlevel()
+	assert(df.index.isin([(1,'Atlanta',0)]).sum()==1)
+	assert(df.index.isin([(1,'Atlanta',4)]).sum()==1)
 
