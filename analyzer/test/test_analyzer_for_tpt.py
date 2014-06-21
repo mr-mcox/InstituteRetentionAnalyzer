@@ -82,6 +82,27 @@ def tpt_analyzer_with_cm_boundary():
 	analyzer.cm_institute_boundaries = pd.DataFrame.from_records(boundary_records,columns=['pid','institute','start_week','end_week'])
 	return analyzer
 
+@pytest.fixture
+def tpt_analyzer_with_active_cm_by_week():
+	analyzer = TPTRetention()
+	records = [
+		(1,'Atlanta',0),
+		(1,'Atlanta',1),
+		(1,'Atlanta',2),
+		(1,'Atlanta',3),
+		(1,'Atlanta',4),
+		(1,'Chicago',2),
+		(1,'Chicago',3),
+		(2,'Chicago',0),
+		(2,'Chicago',1),
+		(2,'Chicago',2),
+		(2,'Chicago',3),
+		(2,'Chicago',4),
+		(2,'Chicago',5),
+	]
+	analyzer.active_cms_by_week = pd.DataFrame.from_records(records,columns=['pid','institute','week'])
+	return analyzer
+
 def test_exit_by_institute_and_week(empty_tpt_analyzer):
 		analyzer = empty_tpt_analyzer
 		analyzer.exit_data_cleaned = pd.DataFrame({
@@ -238,3 +259,10 @@ def test_create_weeks_active(tpt_analyzer_with_cm_boundary):
 	assert(df.index.isin([(1,'Atlanta',0)]).sum()==1)
 	assert(df.index.isin([(1,'Atlanta',4)]).sum()==1)
 
+def test_count_active_by_week(tpt_analyzer_with_active_cm_by_week):
+	analyzer = tpt_analyzer_with_active_cm_by_week
+	analyzer.count_active_cms_by_week()
+	df = analyzer.count_of_active_cms_by_week
+	assert(df.loc[('Atlanta',0),'count']==1)
+	assert(df.loc[('Chicago',2),'count']==2)
+	assert(df.loc[('Chicago',4),'count']==1)

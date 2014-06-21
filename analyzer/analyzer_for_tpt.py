@@ -125,3 +125,9 @@ class TPTRetention(object):
 		for idx in df.index:
 			all_cm_records = all_cm_records + [(df.loc[idx,'pid'], df.loc[idx,'institute'],week + df.loc[idx,'start_week']) for week in range(df.loc[idx,'end_week'] - df.loc[idx,'start_week'] + 1)]
 		self.active_cms_by_week = pd.DataFrame.from_records(all_cm_records,columns=['pid','institute','week'])
+		return self
+
+	def count_active_cms_by_week(self):
+		if not hasattr(self,'active_cms_by_week'):
+			self.create_active_cms_by_week()
+		self.count_of_active_cms_by_week = pd.DataFrame(self.active_cms_by_week.groupby(['institute','week']).count().rename(columns={'pid':'count'})['count'])
