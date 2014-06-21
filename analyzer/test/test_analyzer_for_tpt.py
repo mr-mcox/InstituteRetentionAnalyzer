@@ -181,7 +181,7 @@ def test_cm_institute_boundaries_with_first_record_transfer_out(tpt_analyzer_wit
 	analyzer.create_cm_institute_boundaries()
 	df = analyzer.cm_institute_boundaries
 	df = df.set_index(['pid','institute','start_week','end_week'])
-	assert(df.index.isin([(1,'Atlanta',1,4)]).sum()==1)
+	assert(df.index.isin([(1,'Atlanta',0,4)]).sum()==1)
 
 def test_cm_institute_boundaries_with_transfer_in(tpt_analyzer_with_institute_transfer):
 	analyzer = tpt_analyzer_with_institute_transfer
@@ -197,7 +197,7 @@ def test_cm_institute_boundaries_for_normal(tpt_analyzer_with_institute_transfer
 	df = analyzer.cm_institute_boundaries
 	df = df.set_index(['pid','institute','start_week','end_week'])
 	print(df)
-	assert(df.index.isin([(2,'Chicago',1,5)]).sum()==1)
+	assert(df.index.isin([(2,'Chicago',0,5)]).sum()==1)
 
 def test_cm_institute_boundaries_for_resignation(tpt_analyzer_with_institute_transfer_and_resignation):
 	analyzer = tpt_analyzer_with_institute_transfer_and_resignation
@@ -205,7 +205,7 @@ def test_cm_institute_boundaries_for_resignation(tpt_analyzer_with_institute_tra
 	df = analyzer.cm_institute_boundaries
 	df = df.set_index(['pid','institute','start_week','end_week'])
 	print(df)
-	assert(df.index.isin([(2,'Chicago',1,3)]).sum()==1)
+	assert(df.index.isin([(2,'Chicago',0,3)]).sum()==1)
 
 def test_cm_institute_boundaries_for_transfer_and_resignation(tpt_analyzer_with_institute_transfer_and_resignation):
 	analyzer = tpt_analyzer_with_institute_transfer_and_resignation
@@ -213,6 +213,6 @@ def test_cm_institute_boundaries_for_transfer_and_resignation(tpt_analyzer_with_
 	df = analyzer.cm_institute_boundaries
 	df = df.set_index(['pid','institute','start_week','end_week'])
 	print(df)
-	assert(df.index.isin([(1,'Atlanta',1,4)]).sum()==1)
+	assert(df.index.isin([(1,'Atlanta',0,4)]).sum()==1)
 	assert(df.index.isin([(1,'Chicago',2,3)]).sum()==1)
 

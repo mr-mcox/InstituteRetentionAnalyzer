@@ -94,7 +94,7 @@ class TPTRetention(object):
 			cur_index = df.index[index_i]
 			current_institute = df.loc[cur_index,'institute']
 			current_pid, current_hist_id = df.index[index_i]
-			start_week = 1
+			start_week = 0
 			if not df.loc[cur_index,'is_first_institute']:
 				start_week = df.loc[cur_index,'week']
 			end_week = 5
