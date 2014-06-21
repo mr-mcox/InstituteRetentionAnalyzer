@@ -1,5 +1,6 @@
 import pandas as pd
 from InstituteRetentionAnalyzer.munging.institute_week import *
+import pdb
 
 class TPTRetention(object):
 	"""docstring for TPTRetention"""
@@ -69,10 +70,51 @@ class TPTRetention(object):
 		self.transfer_out_count_by_institute_week = pd.DataFrame({'count':self.cm_history_cleaned.ix[self.cm_history_cleaned.is_transfer_out].groupby(['institute','week']).size()})
 		return self
 
-	def create_all_weeks_data(self):
+	def find_useful_institute_records(self):
 		assert hasattr(self,'cm_history_cleaned')
 		if 'is_first_institute' not in self.cm_history_cleaned:
 			self.mark_notable_institute_assignment_records()
 
-		self.all_weeks_data = self.cm_history_cleaned.ix[self.cm_history_cleaned.is_first_institute | self.cm_history_cleaned.is_notable_institute_record]
+		self.useful_institute_records = self.cm_history_cleaned.ix[self.cm_history_cleaned.is_first_institute | self.cm_history_cleaned.is_notable_institute_record]
 		return self
+
+	def create_cm_institute_boundaries(self):
+		assert hasattr(self,'exit_data_cleaned')
+		if not hasattr(self,'useful_institute_records'):
+			self.find_useful_institute_records()
+		assert set(self.useful_institute_records.columns) >= set(['pid','history_id','institute','week','is_first_institute','is_transfer_in','is_transfer_out'])
+		exit_records = self.exit_data_cleaned
+		df = self.useful_institute_records.set_index(['pid','history_id']).sortlevel()
+
+		boundary_records = list()
+		index_i = 0
+		# are_within_CM = False
+		while(index_i <= (len(df.index)-1)):
+			next_index_delta = 1
+			cur_index = df.index[index_i]
+			current_institute = df.loc[cur_index,'institute']
+			current_pid, current_hist_id = df.index[index_i]
+			start_week = 1
+			if not df.loc[cur_index,'is_first_institute']:
+				start_week = df.loc[cur_index,'week']
+			end_week = 5
+
+			next_pid = None
+			next_hist_id = None
+			if index_i < (len(df.index)-1):
+				next_pid, next_hist_id = df.index[index_i + 1]
+			if next_pid == current_pid:
+				if df.loc[cur_index,'is_transfer_out']:
+					# next_index_delta = 2
+					end_week = df.loc[cur_index,'week']
+				else:
+					df2 = df.reset_index()
+					assert False, 'Somehow there are multiple CM records in a row without a transfer: ' + str(df2.ix[df2.pid == current_pid,:])
+			if len(exit_records.ix[(exit_records.pid == current_pid) & (exit_records.institute == current_institute) & exit_records.release_code.notnull()].index == 1):
+				end_week = exit_records.ix[(exit_records.pid == current_pid) & (exit_records.institute == current_institute) & exit_records.release_code.notnull(),'week'].iloc[0] -1
+			boundary_records.append((current_pid,current_institute,start_week,end_week))
+			index_i += next_index_delta
+		self.cm_institute_boundaries = pd.DataFrame.from_records(boundary_records, columns =['pid','institute','start_week','end_week'])
+		return self
+
+
