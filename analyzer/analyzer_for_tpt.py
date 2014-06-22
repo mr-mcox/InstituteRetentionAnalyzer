@@ -1,6 +1,7 @@
 import pandas as pd
 from InstituteRetentionAnalyzer.munging.institute_week import *
 from InstituteRetentionAnalyzer.munging.cmpp_file import *
+from InstituteRetentionAnalyzer.munging.reformat_bobj import *
 from InstituteRetentionAnalyzer.analyzer.filter import filter_for_started
 
 
@@ -16,6 +17,7 @@ class TPTRetention(object):
 			exit_data_cleaned = add_er_pending(exit_data_cleaned,cmpp_data_cleaned)
 
 		if exit_data_cleaned is not None and 'week' not in exit_data_cleaned.columns:
+			exit_data_cleaned = fill_in_release_date(exit_data_cleaned)
 			exit_data_cleaned = add_institute_week(exit_data_cleaned,institute_start_date_df)
 			exit_data_cleaned = filter_for_started(exit_data_cleaned)
 			exit_data_cleaned = exit_data_cleaned.ix[exit_data_cleaned.institute.isin(institute_start_date_df.institute)]
@@ -166,3 +168,61 @@ class TPTRetention(object):
 		if not hasattr(self,'active_cms_by_week') or self.active_cms_by_week is None:
 			self.create_active_cms_by_week()
 		self.count_of_active_cms_by_week = pd.DataFrame(self.active_cms_by_week.groupby(['institute','week']).count().rename(columns={'pid':'count'})['count'])
+		return self
+
+	def compute_percent_active_by_week(self):
+		if not hasattr(self,'count_of_active_cms_by_week') or self.count_of_active_cms_by_week is None:
+			self.count_active_cms_by_week()
+		df = self.count_of_active_cms_by_week.reset_index().set_index('institute')
+		wk0 = df.ix[df.week==0].rename(columns={'count':'wk0_count'})
+		del wk0['week']
+		df = df.join(wk0)
+		df['value'] = df['count']/df.wk0_count
+		df = df.reset_index()
+		self.percent_active_by_week = pd.DataFrame(df,columns=['institute','week','value']).set_index(['institute','week'])
+		return self
+
+	def create_formatted_table(self):
+		if not hasattr(self,'transfer_in_count_by_institute_week') or self.transfer_in_count_by_institute_week is None or not hasattr(self,'transfer_out_count_by_institute_week') or self.transfer_out_count_by_institute_week is None:
+			self.count_transfers()
+		if not hasattr(self,'release_code_count_by_institute_week') or self.release_code_count_by_institute_week is None:
+			self.count_by_release_code()
+		if not hasattr(self,'count_of_active_cms_by_week') or self.count_of_active_cms_by_week is None:
+			self.count_active_cms_by_week()
+		if not hasattr(self,'percent_active_by_week') or self.percent_active_by_week is None:
+			self.compute_percent_active_by_week()
+		transfer_in_count = self.transfer_in_count_by_institute_week.reset_index().rename(columns={'count':'value'})
+		transfer_in_count['value_type'] = 'transfer_in_count'
+		transfer_out_count = self.transfer_out_count_by_institute_week.reset_index().rename(columns={'count':'value'})
+		transfer_out_count['value_type'] = 'transfer_out_count'
+		release_code_count = self.release_code_count_by_institute_week.reset_index().rename(columns={'count':'value','release_code':'value_type'})
+		active_count = self.count_of_active_cms_by_week.reset_index().rename(columns={'count':'value'})
+		active_count['value_type'] = 'active_count'
+		active_percent = self.percent_active_by_week.reset_index()
+		active_percent['value_type'] = 'active_percent'
+		df = pd.concat([transfer_in_count,transfer_out_count,release_code_count,active_count,active_percent])
+		if 'index' in df.columns:
+			del df['index']
+		df = df.set_index(['institute','value_type','week'])
+		df = df.unstack()
+		df = df.reset_index()
+		value_type_order_map = {
+		"active_count" : 1,
+		"active_percent" : 2,
+		"NOSHOW" : 3,
+		"RESIGNED" : 4,
+		"TERMINATED" : 5,
+		"ER PENDING" : 6,
+		"EMERGREL" : 7,
+		'transfer_in_count': 8,
+		'transfer_out_count': 9,
+		}
+		df['value_order'] = df.value_type.map(value_type_order_map)
+		df = df.set_index(['institute','value_order','value_type']).sortlevel()
+		self.formated_retention_table = df
+		return self
+
+
+
+
+

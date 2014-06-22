@@ -15,11 +15,14 @@ analyzer = TPTRetention(
 		institute_start_date_df = institute_start_date_df
 	)
 
-analyzer.count_transfers()
-analyzer.count_by_release_code()
-analyzer.count_active_cms_by_week()
+# analyzer.count_transfers()
+# analyzer.count_by_release_code()
+# analyzer.count_active_cms_by_week()
 
-analyzer.count_of_active_cms_by_week.to_csv('count_active_by_week.csv')
-analyzer.release_code_count_by_institute_week.to_csv('count_exit_by_week.csv')
-analyzer.transfer_in_count_by_institute_week.to_csv('count_transfer_in_by_week.csv')
-analyzer.transfer_out_count_by_institute_week.to_csv('count_transfer_out_by_week.csv')
+# analyzer.count_of_active_cms_by_week.to_csv('count_active_by_week.csv')
+# analyzer.release_code_count_by_institute_week.to_csv('count_exit_by_week.csv')
+# analyzer.transfer_in_count_by_institute_week.to_csv('count_transfer_in_by_week.csv')
+# analyzer.transfer_out_count_by_institute_week.to_csv('count_transfer_out_by_week.csv')
+
+analyzer.create_formatted_table()
+analyzer.formated_retention_table.to_csv('formatted_retention_table.csv')

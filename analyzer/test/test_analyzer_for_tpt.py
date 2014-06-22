@@ -141,6 +141,27 @@ def tpt_analyzer_with_active_cm_by_week():
 	analyzer.active_cms_by_week = pd.DataFrame.from_records(records,columns=['pid','institute','week'])
 	return analyzer
 
+@pytest.fixture
+def tpt_analyzer_with_count_active_by_week():
+	analyzer = TPTRetention()
+	records = [
+		('Atlanta',0,4),
+		('Atlanta',1,3),
+		('Atlanta',2,2),
+	]
+	analyzer.count_of_active_cms_by_week = pd.DataFrame.from_records(records,columns=['institute','week','count']).set_index(['institute','week'])
+	return analyzer
+
+@pytest.fixture
+def tpt_analyzer_with_computations():
+	analyzer = TPTRetention()
+	analyzer.count_of_active_cms_by_week          = pd.DataFrame({'institute':['Atlanta','Atlanta'],'week':[0,1],'count':[4,2]})
+	analyzer.release_code_count_by_institute_week = pd.DataFrame({'institute':['Atlanta'],'week':[1],'count':[1],'release_code':['RESIGNED']})
+	analyzer.transfer_in_count_by_institute_week  = pd.DataFrame({'institute':['Atlanta'],'week':[1],'count':[1]})
+	analyzer.transfer_out_count_by_institute_week = pd.DataFrame({'institute':['Atlanta'],'week':[1],'count':[1]})
+	analyzer.percent_active_by_week               = pd.DataFrame({'institute':['Atlanta','Atlanta'],'week':[0,1],'value':[1,0.5]})
+	return analyzer
+
 def test_exit_by_institute_and_week(empty_tpt_analyzer):
 		analyzer = empty_tpt_analyzer
 		analyzer.exit_data_cleaned = pd.DataFrame({
@@ -328,3 +349,20 @@ def test_cm_with_multiple_records_for_first_institute_only_has_one_institute(tpt
 	analyzer.mark_notable_institute_assignment_records()
 	df = analyzer.cm_history_cleaned
 	assert(len(df.ix[(df.pid==1) & (df.is_first_institute)].index)==1)
+
+def test_percent_active_by_week(tpt_analyzer_with_count_active_by_week):
+	analyzer = tpt_analyzer_with_count_active_by_week
+	analyzer.compute_percent_active_by_week()
+	df = analyzer.percent_active_by_week
+	assert(df.loc[('Atlanta',0),'value']==1)
+	assert(df.loc[('Atlanta',1),'value']==0.75)
+	assert(df.loc[('Atlanta',2),'value']==0.5)
+
+def test_create_formatted_table(tpt_analyzer_with_computations):
+	analyzer = tpt_analyzer_with_computations
+	analyzer.create_formatted_table()
+	print(analyzer.formated_retention_table)
+	df = analyzer.formated_retention_table
+	print("df columns are " + str(df.columns))
+	assert(df.loc[('Atlanta',2,'active_percent'),[0,1]].loc['value',1]==0.5)
+	assert(df.loc[('Atlanta',4,'RESIGNED'),[0,1]].loc['value',1]==1)
