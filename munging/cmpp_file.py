@@ -1,6 +1,6 @@
 import pandas as pd
 
-def rename_columns(df):		
+def rename_cmpp_columns(df):		
 	column_map = {
 		"Person Id"		                                                   : 'pid',
 		"Status"		                                                   : 'release_code',
@@ -9,4 +9,5 @@ def rename_columns(df):
 	return df.rename(columns=column_map)
 
 def add_er_pending(df,cmpp_df):
-	return df.set_index('pid').combine_first(cmpp_df.ix[cmpp_df.release_code=='ER PENDING'].set_index('pid')).reset_index()
+	cmpp = cmpp_df.ix[cmpp_df.release_code=='ER PENDING'].set_index('pid').convert_objects()
+	return df.set_index('pid').combine_first(cmpp).reset_index()

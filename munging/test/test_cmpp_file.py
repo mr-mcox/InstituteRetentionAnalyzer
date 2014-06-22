@@ -2,9 +2,9 @@ from InstituteRetentionAnalyzer.munging.cmpp_file import *
 import pandas as pd
 import datetime
 
-def test_rename_columns():
+def test_rename_cmpp_columns():
 	orig_df = pd.DataFrame(columns = ["Person Id", "Status", "Date (that CM showed up at institute or that they departed)"])
-	new_df = rename_columns(orig_df)
+	new_df = rename_cmpp_columns(orig_df)
 	assert(set(new_df.columns) == set(['pid','release_code','release_date']))
 
 def test_add_er_pending():

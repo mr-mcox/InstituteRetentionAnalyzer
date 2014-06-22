@@ -68,7 +68,45 @@ def tpt_analyzer_with_one_cm_transfer(institute_start_date_df):
 									'history_record_timestamp' : [datetime(2014,6,1),datetime(2014,6,23),datetime(2014,6,25)],
 									'history_id'               : [1,2,3],
 									'institute'                : ['Atlanta','Chicago','Chicago'],
+								})
+	analyzer.exit_data_cleaned = pd.DataFrame({
+						'pid'  : [1],
+						'week' : [None],
+						'institute': ['Chicago'],
+						'release_code' : [None]
+						})
+	return analyzer
+
+@pytest.fixture
+def tpt_analyzer_with_cm_that_has_multiple_records_for_first_institute(institute_start_date_df):
+	analyzer = TPTRetention()
+	analyzer.institute_start_date_df = institute_start_date_df
+	analyzer.cm_history_cleaned = pd.DataFrame({
+									'pid'                      : [1,2,1,1],
+									'week'                     : [1,1,1,2],
+									'history_record_timestamp' : [datetime(2014,6,1),datetime(2014,6,1),datetime(2014,6,23),datetime(2014,6,25)],
+									'history_id'               : [1,2,3,4],
+									'institute'                : ['Atlanta', 'Phoenix', 'Atlanta','Chicago'],
 									})
+	return analyzer
+
+@pytest.fixture
+def tpt_analyzer_with_cm_that_has_start_week_then_transfer(institute_start_date_df):
+	analyzer = TPTRetention()
+	analyzer.institute_start_date_df = institute_start_date_df
+	analyzer.cm_history_cleaned = pd.DataFrame({
+									'pid'                      : [1,1,1],
+									'week'                     : [1,3,1],
+									'history_record_timestamp' : [datetime(2014,6,1),datetime(2014,6,6),datetime(2014,6,19)],
+									'history_id'               : [1,2,3],
+									'institute'                : ['Phoenix', 'Phoenix','Chicago'],
+									})
+	analyzer.exit_data_cleaned = pd.DataFrame({
+					'pid'  : [1],
+					'week' : [None],
+					'institute': ['Chicago'],
+					'release_code' : [None]
+					})
 	return analyzer
 
 @pytest.fixture
@@ -247,6 +285,16 @@ def test_cm_institute_boundaries_for_transfer_and_resignation(tpt_analyzer_with_
 	assert(df.index.isin([(1,'Atlanta',0,3)]).sum()==1)
 	assert(df.index.isin([(1,'Chicago',2,3)]).sum()==1)
 
+def test_cm_institute_boundaries_for_first_institute_then_transfer(tpt_analyzer_with_cm_that_has_start_week_then_transfer):
+	analyzer = tpt_analyzer_with_cm_that_has_start_week_then_transfer
+	analyzer.create_cm_institute_boundaries()
+	df = analyzer.cm_institute_boundaries
+	df = df.set_index(['pid','institute','start_week','end_week'])
+	print(df)
+	# assert(False)
+	assert(df.index.isin([(1,'Phoenix',0,2)]).sum()==1)
+	assert(df.index.isin([(1,'Chicago',1,5)]).sum()==1)
+
 def test_create_weeks_active(tpt_analyzer_with_cm_boundary):
 	analyzer = tpt_analyzer_with_cm_boundary
 	analyzer.create_active_cms_by_week()
@@ -266,3 +314,17 @@ def test_count_active_by_week(tpt_analyzer_with_active_cm_by_week):
 	assert(df.loc[('Atlanta',0),'count']==1)
 	assert(df.loc[('Chicago',2),'count']==2)
 	assert(df.loc[('Chicago',4),'count']==1)
+
+def test_count_active_by_week_from_cm_records(tpt_analyzer_with_institute_transfer_and_resignation):
+	analyzer = tpt_analyzer_with_institute_transfer_and_resignation
+	analyzer.count_active_cms_by_week()
+	df = analyzer.count_of_active_cms_by_week
+	assert(df.loc[('Atlanta',0),'count']==1)
+	assert(df.loc[('Chicago',2),'count']==2)
+	assert(df.loc[('Chicago',0),'count']==1)
+
+def test_cm_with_multiple_records_for_first_institute_only_has_one_institute(tpt_analyzer_with_cm_that_has_multiple_records_for_first_institute):
+	analyzer = tpt_analyzer_with_cm_that_has_multiple_records_for_first_institute
+	analyzer.mark_notable_institute_assignment_records()
+	df = analyzer.cm_history_cleaned
+	assert(len(df.ix[(df.pid==1) & (df.is_first_institute)].index)==1)
