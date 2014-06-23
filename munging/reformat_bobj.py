@@ -9,6 +9,7 @@ def rename_bobj_columns(df):
 		"Release Date"		            : 'release_date',
 		"Current Institute"	            : 'institute',
 		"Release Step"		            : 'step',
+		"Release Step (CM History)"		: 'step',
 		'Institute Name (CM History)'   : 'institute',
 		'CM History Id'                 : 'history_id',
 		'CM History Record Update Time' : 'history_record_timestamp',

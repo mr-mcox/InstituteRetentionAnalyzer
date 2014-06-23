@@ -16,18 +16,25 @@ class TPTRetention(object):
 		if cmpp_data_cleaned is not None:
 			exit_data_cleaned = add_er_pending(exit_data_cleaned,cmpp_data_cleaned)
 
-		if exit_data_cleaned is not None and 'week' not in exit_data_cleaned.columns:
-			exit_data_cleaned = fill_in_release_date(exit_data_cleaned)
-			exit_data_cleaned = add_institute_week(exit_data_cleaned,institute_start_date_df)
-			exit_data_cleaned = filter_for_started(exit_data_cleaned)
-			exit_data_cleaned = exit_data_cleaned.ix[exit_data_cleaned.institute.isin(institute_start_date_df.institute)]
+		if exit_data_cleaned is not None:
+			assert 'release_code' in exit_data_cleaned.columns
+			exit_data_cleaned = exit_data_cleaned.ix[~(exit_data_cleaned.release_code=="NOSHOW")]
+			if 'week' not in exit_data_cleaned.columns:
+				exit_data_cleaned = fill_in_release_date(exit_data_cleaned)
+				exit_data_cleaned = add_institute_week(exit_data_cleaned,institute_start_date_df)
+				exit_data_cleaned = filter_for_started(exit_data_cleaned)
+				exit_data_cleaned = exit_data_cleaned.ix[exit_data_cleaned.institute.isin(institute_start_date_df.institute)]
 
-		if cm_history_cleaned is not None and 'week' not in cm_history_cleaned.columns:
-			cm_history_cleaned = add_institute_week(cm_history_cleaned,institute_start_date_df)
-			cm_history_cleaned = filter_for_started(cm_history_cleaned)
-			cm_history_cleaned = cm_history_cleaned.ix[cm_history_cleaned.institute.isin(institute_start_date_df.institute)]
-
-
+		if cm_history_cleaned is not None:
+			if 'step' in cm_history_cleaned.columns:
+				#Remove CMs without step to not take into account records before CMs reached pre-inst
+				cm_history_cleaned = cm_history_cleaned.ix[cm_history_cleaned.step.notnull()]
+			if exit_data_cleaned is not None:
+				cm_history_cleaned = cm_history_cleaned.ix[cm_history_cleaned.pid.isin(exit_data_cleaned.pid)]
+			if 'week' not in cm_history_cleaned.columns:
+				cm_history_cleaned = add_institute_week(cm_history_cleaned,institute_start_date_df)
+				cm_history_cleaned = filter_for_started(cm_history_cleaned)
+				cm_history_cleaned = cm_history_cleaned.ix[cm_history_cleaned.institute.isin(institute_start_date_df.institute)]
 
 		self.exit_data_cleaned       = exit_data_cleaned
 		self.cm_history_cleaned      = cm_history_cleaned
@@ -207,15 +214,14 @@ class TPTRetention(object):
 		df = df.unstack()
 		df = df.reset_index()
 		value_type_order_map = {
-		"active_count" : 1,
-		"active_percent" : 2,
-		"NOSHOW" : 3,
-		"RESIGNED" : 4,
-		"TERMINATED" : 5,
-		"ER PENDING" : 6,
-		"EMERGREL" : 7,
-		'transfer_in_count': 8,
-		'transfer_out_count': 9,
+			"active_percent"     : 1,
+			"active_count"       : 2,
+			"RESIGNED"           : 3,
+			"ER PENDING"         : 4,
+			"EMERGREL"           : 5,
+			"TERMINATED"         : 6,
+			'transfer_out_count' : 7,
+			'transfer_in_count'  : 8,
 		}
 		df['value_order'] = df.value_type.map(value_type_order_map)
 		df = df.set_index(['institute','value_order','value_type']).sortlevel()

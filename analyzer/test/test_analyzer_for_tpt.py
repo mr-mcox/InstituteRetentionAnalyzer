@@ -162,6 +162,42 @@ def tpt_analyzer_with_computations():
 	analyzer.percent_active_by_week               = pd.DataFrame({'institute':['Atlanta','Atlanta'],'week':[0,1],'value':[1,0.5]})
 	return analyzer
 
+@pytest.fixture
+def tpt_analyzer_with_no_show_input(institute_start_date_df):
+	exit_data_cleaned = pd.DataFrame({
+		'pid'           : [0,1],
+		'release_code'  : ['RESIGNED','NOSHOW'],
+		'release_date'  : [datetime(2014,6,1),datetime(2014,6,1)],
+		'er_start_date' : [datetime(2014,6,1),datetime(2014,6,1)],
+		'institute'     : ["Atlanta","Atlanta"],
+
+									})
+
+	cm_history_cleaned = pd.DataFrame({
+		'pid'                      : [0,1],
+		'release_code'             : ['RESIGNED','NOSHOW'],
+		'history_record_timestamp' : [datetime(2014,6,1),datetime(2014,6,1)],
+		'history_id'               : [0,1],
+		'institute'                : ["Atlanta","Atlanta"],
+
+									})
+	analyzer = TPTRetention(exit_data_cleaned=exit_data_cleaned,institute_start_date_df=institute_start_date_df,cm_history_cleaned=cm_history_cleaned)
+	return analyzer
+
+
+@pytest.fixture
+def tpt_analyzer_with_history_without_step(institute_start_date_df):
+	cm_history_cleaned = pd.DataFrame({
+		'pid'                      : [0,1],
+		'release_code'             : ['RESIGNED','NOSHOW'],
+		'history_record_timestamp' : [datetime(2014,6,1),datetime(2014,6,1)],
+		'history_id'               : [0,1],
+		'institute'                : ["Atlanta","Atlanta"],
+		'step'	                   : ['INSTREG',None]
+									})
+	analyzer = TPTRetention(institute_start_date_df=institute_start_date_df,cm_history_cleaned=cm_history_cleaned)
+	return analyzer
+
 def test_exit_by_institute_and_week(empty_tpt_analyzer):
 		analyzer = empty_tpt_analyzer
 		analyzer.exit_data_cleaned = pd.DataFrame({
@@ -366,3 +402,15 @@ def test_create_formatted_table(tpt_analyzer_with_computations):
 	print("df columns are " + str(df.columns))
 	assert(df.loc[('Atlanta',2,'active_percent'),[0,1]].loc['value',1]==0.5)
 	assert(df.loc[('Atlanta',4,'RESIGNED'),[0,1]].loc['value',1]==1)
+
+def test_filter_out_no_shows(tpt_analyzer_with_no_show_input):
+	analyzer = tpt_analyzer_with_no_show_input
+	assert(len(analyzer.exit_data_cleaned.ix[analyzer.exit_data_cleaned.release_code=='NOSHOW'].index)==0)
+
+def test_cms_not_in_exit_code_removed_from_history(tpt_analyzer_with_no_show_input):
+	analyzer = tpt_analyzer_with_no_show_input
+	assert(set(analyzer.exit_data_cleaned.pid.unique())==set(analyzer.cm_history_cleaned.pid.unique()))
+
+def test_remove_cms_from_history_without_step(tpt_analyzer_with_history_without_step):
+	analyzer = tpt_analyzer_with_history_without_step
+	assert(analyzer.cm_history_cleaned.step.isnull().sum()==0)
