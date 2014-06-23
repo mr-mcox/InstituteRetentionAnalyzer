@@ -115,7 +115,7 @@ def tpt_analyzer_with_cm_boundary():
 	boundary_records = [
 		(1,'Atlanta',0,4),
 		(1,'Chicago',2,3),
-		(2,'Chicago',0,5),
+		(2,'Chicago',0,7),
 	]
 	analyzer.cm_institute_boundaries = pd.DataFrame.from_records(boundary_records,columns=['pid','institute','start_week','end_week'])
 	return analyzer
@@ -137,6 +137,8 @@ def tpt_analyzer_with_active_cm_by_week():
 		(2,'Chicago',3),
 		(2,'Chicago',4),
 		(2,'Chicago',5),
+		(2,'Chicago',6),
+		(2,'Chicago',7),
 	]
 	analyzer.active_cms_by_week = pd.DataFrame.from_records(records,columns=['pid','institute','week'])
 	return analyzer
@@ -315,7 +317,7 @@ def test_cm_institute_boundaries_with_transfer_in(tpt_analyzer_with_institute_tr
 	df = analyzer.cm_institute_boundaries
 	df = df.set_index(['pid','institute','start_week','end_week'])
 	print(df)
-	assert(df.index.isin([(1,'Chicago',2,5)]).sum()==1)
+	assert(df.index.isin([(1,'Chicago',2,7)]).sum()==1)
 
 def test_cm_institute_boundaries_for_normal(tpt_analyzer_with_institute_transfer):
 	analyzer = tpt_analyzer_with_institute_transfer
@@ -323,7 +325,7 @@ def test_cm_institute_boundaries_for_normal(tpt_analyzer_with_institute_transfer
 	df = analyzer.cm_institute_boundaries
 	df = df.set_index(['pid','institute','start_week','end_week'])
 	print(df)
-	assert(df.index.isin([(2,'Chicago',0,5)]).sum()==1)
+	assert(df.index.isin([(2,'Chicago',0,7)]).sum()==1)
 
 def test_cm_institute_boundaries_for_resignation(tpt_analyzer_with_institute_transfer_and_resignation):
 	analyzer = tpt_analyzer_with_institute_transfer_and_resignation
@@ -350,7 +352,7 @@ def test_cm_institute_boundaries_for_first_institute_then_transfer(tpt_analyzer_
 	print(df)
 	# assert(False)
 	assert(df.index.isin([(1,'Phoenix',0,2)]).sum()==1)
-	assert(df.index.isin([(1,'Chicago',1,5)]).sum()==1)
+	assert(df.index.isin([(1,'Chicago',1,7)]).sum()==1)
 
 def test_create_weeks_active(tpt_analyzer_with_cm_boundary):
 	analyzer = tpt_analyzer_with_cm_boundary
@@ -359,7 +361,7 @@ def test_create_weeks_active(tpt_analyzer_with_cm_boundary):
 	print(df)
 	assert(df.index.isin([(1,'Atlanta')]).sum()==5)
 	assert(df.index.isin([(1,'Chicago')]).sum()==2)
-	assert(df.index.isin([(2,'Chicago')]).sum()==6)
+	assert(df.index.isin([(2,'Chicago')]).sum()==8)
 	df = analyzer.active_cms_by_week.set_index(['pid','institute','week']).sortlevel()
 	assert(df.index.isin([(1,'Atlanta',0)]).sum()==1)
 	assert(df.index.isin([(1,'Atlanta',4)]).sum()==1)
@@ -400,8 +402,8 @@ def test_create_formatted_table(tpt_analyzer_with_computations):
 	print(analyzer.formated_retention_table)
 	df = analyzer.formated_retention_table
 	print("df columns are " + str(df.columns))
-	assert(df.loc[('Atlanta',2,'active_percent'),[0,1]].loc['value',1]==0.5)
-	assert(df.loc[('Atlanta',4,'RESIGNED'),[0,1]].loc['value',1]==1)
+	assert(df.loc[('Atlanta',1,'active_percent'),[0,1]].loc['value',1]==0.5)
+	assert(df.loc[('Atlanta',3,'RESIGNED'),[0,1]].loc['value',1]==1)
 
 def test_filter_out_no_shows(tpt_analyzer_with_no_show_input):
 	analyzer = tpt_analyzer_with_no_show_input

@@ -130,7 +130,7 @@ class TPTRetention(object):
 			current_institute = df.loc[cur_index,'institute']
 			current_pid, current_hist_id = df.index[index_i]
 			start_week = 0
-			end_week = 5
+			end_week = 7
 
 			next_pid = None
 			next_hist_id = None
