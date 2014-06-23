@@ -18,5 +18,6 @@ def rename_bobj_columns(df):
 	return df.rename(columns=column_map)
 
 def fill_in_release_date(df):
-	df.ix[df.release_date.isnull(),'release_date'] = df.ix[df.release_date.isnull(),'er_start_date']
+	assert set(df.columns) >= set(['release_date','release_code','er_start_date'])
+	df.ix[df.release_date.isnull() & (df.release_code=='EMERGREL'),'release_date'] = df.ix[df.release_date.isnull() & (df.release_code=='EMERGREL'),'er_start_date']
 	return df

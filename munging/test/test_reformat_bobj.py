@@ -13,6 +13,11 @@ def test_institute_transfer_rename_bobj_columns():
 	assert(set(new_df.columns) ==  set(['history_id','pid','first_name','last_name','institute','history_record_timestamp']))
 
 def test_fill_exit_date_with_er_date():
-	orig_df = pd.DataFrame({'pid':[1],'release_date':[None],'er_start_date':['6/2']})
+	orig_df = pd.DataFrame({'pid':[1],'release_code':['EMERGREL'],'release_date':[None],'er_start_date':['6/2']})
 	new_df = fill_in_release_date(orig_df)
 	assert(new_df.release_date.notnull().all())
+
+def test_dont_fill_exit_date_with_er_date_when_no_er_release_code():
+	orig_df = pd.DataFrame({'pid':[1],'release_code':['RESIGNED'],'release_date':[None],'er_start_date':['6/2']})
+	new_df = fill_in_release_date(orig_df)
+	assert(new_df.release_date.isnull().all())
