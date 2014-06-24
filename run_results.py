@@ -26,3 +26,6 @@ analyzer = TPTRetention(
 
 analyzer.create_formatted_table()
 analyzer.formated_retention_table.to_csv('formatted_retention_table.csv')
+analyzer.list_of_exited_cms.to_csv('list_of_exited_cms.csv')
+analyzer.list_of_transfer_cms.to_csv('list_of_transfer_cms.csv')
+analyzer.list_of_week_0_cms.to_csv('list_of_week_0_cms.csv')

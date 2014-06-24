@@ -51,9 +51,11 @@ def tpt_analyzer_with_institute_transfer_and_resignation():
 
 								})
 	analyzer.exit_data_cleaned = pd.DataFrame({
-								'pid'  : [1,2],
-								'week' : [4,4],
-								'institute': ['Chicago','Chicago'],
+								'pid'          : [1,2],
+								'first_name'   : ['Elliot','William'],
+								'last_name'    : ['Stabler','Munch'],
+								'week'         : [4,4],
+								'institute'    : ['Chicago','Chicago'],
 								'release_code' : ['RESIGNED','RESIGNED']
 								})
 	return analyzer
@@ -198,6 +200,78 @@ def tpt_analyzer_with_history_without_step(institute_start_date_df):
 		'step'	                   : ['INSTREG',None]
 									})
 	analyzer = TPTRetention(institute_start_date_df=institute_start_date_df,cm_history_cleaned=cm_history_cleaned)
+	return analyzer
+
+@pytest.fixture
+def tpt_analyzer_with_cms_who_started_early(institute_start_date_df):
+	exit_data_cleaned = pd.DataFrame({
+		'pid'           : [0,1,2],
+		'release_code'  : [None,"RESIGNED","NOSHOW"],
+		'release_date'  : [None,datetime(2014,6,10),datetime(2014,5,30)],
+		'er_start_date' : [None,datetime(2014,6,10),datetime(2014,5,30)],
+		'institute'     : ["Atlanta","Atlanta","Atlanta"],
+
+									})
+
+	cm_history_cleaned = pd.DataFrame({
+		'pid'                      : [0,0,1,2],
+		'history_record_timestamp' : [datetime(2014,5,1),datetime(2014,5,3),datetime(2014,5,3),datetime(2014,5,3)],
+		'history_id'               : [0,1,2,3],
+		'institute'                : ["Atlanta","Atlanta","Atlanta","Atlanta"],
+		'step'	                   : ['PREISNT','INSTREG','INSTREG','PREISNT']
+
+									})
+	analyzer = TPTRetention(exit_data_cleaned=exit_data_cleaned,institute_start_date_df=institute_start_date_df,cm_history_cleaned=cm_history_cleaned)
+	return analyzer
+
+@pytest.fixture
+def tpt_analyzer_with_cm_who_went_to_institute_last_year(institute_start_date_df):
+	exit_data_cleaned = pd.DataFrame({
+		'pid'           : [0],
+		'release_code'  : [None],
+		'release_date'  : [datetime(2014,6,10)],
+		'er_start_date' : [datetime(2014,6,10)],
+		'institute'     : ["Atlanta"],
+
+									})
+
+	cm_history_cleaned = pd.DataFrame({
+		'pid'                      : [0],
+		'history_record_timestamp' : [datetime(2013,5,1)],
+		'history_id'               : [0],
+		'institute'                : ["Atlanta"],
+		'step'	                   : ['INSTREG']
+
+									})
+	analyzer = TPTRetention(exit_data_cleaned=exit_data_cleaned,institute_start_date_df=institute_start_date_df,cm_history_cleaned=cm_history_cleaned)
+	return analyzer
+
+@pytest.fixture
+def tpt_analyzer_with_sample_data_for_list():
+	#CM 1 transfered from the Atlanta institute in week 4 to week 2 of Chicago then resigned in week 4. CM 2 started in Chicago and is is active
+	analyzer = TPTRetention()
+	analyzer.cm_history_cleaned = pd.DataFrame({
+								'pid'                         : [1,1,1,2],
+								'first_name'                  : ['Elliot','Elliot','Elliot','William'],
+								'last_name'                   : ['Stabler','Stabler','Stabler','Munch'],
+								'week'                        : [4,2,2,3],
+								'history_id'                  : [1,2,3,4],
+								'institute'                   : ['Atlanta','Chicago','Chicago','Chicago'],
+								'is_notable_institute_record' : [True,True,False,False],
+								'is_first_institute'          : [True,False,False,True],
+								'is_transfer_out'             : [True,False,False,False],
+								'is_transfer_in'              : [False,True,False,False],
+
+								})
+	analyzer.exit_data_cleaned = pd.DataFrame({
+								'pid'          : [1,2],
+								'first_name'   : ['Elliot','William'],
+								'last_name'    : ['Stabler','Munch'],
+								'week'         : [4,4],
+								'release_date'  : [datetime(2014,6,10),None],
+								'institute'    : ['Chicago','Chicago'],
+								'release_code' : ['RESIGNED',None]
+								})
 	return analyzer
 
 def test_exit_by_institute_and_week(empty_tpt_analyzer):
@@ -416,3 +490,56 @@ def test_cms_not_in_exit_code_removed_from_history(tpt_analyzer_with_no_show_inp
 def test_remove_cms_from_history_without_step(tpt_analyzer_with_history_without_step):
 	analyzer = tpt_analyzer_with_history_without_step
 	assert(analyzer.cm_history_cleaned.step.isnull().sum()==0)
+
+def test_change_history_start_week_where_cm_appears_active(tpt_analyzer_with_cms_who_started_early):
+	analyzer = tpt_analyzer_with_cms_who_started_early
+	df = analyzer.cm_history_cleaned.set_index('history_id')
+	assert(df.index.isin([0]).sum()==0)
+	assert(df.loc[1,'week']==1)
+
+def test_change_history_start_week_where_cm_later_resigned(tpt_analyzer_with_cms_who_started_early):
+	analyzer = tpt_analyzer_with_cms_who_started_early
+	df = analyzer.cm_history_cleaned.set_index('history_id')
+	assert(df.loc[2,'week']==1)
+
+def test_cm_no_show_doesnt_show(tpt_analyzer_with_cms_who_started_early):
+	analyzer = tpt_analyzer_with_cms_who_started_early
+	df = analyzer.cm_history_cleaned.set_index('pid')
+	assert(df.index.isin([2]).sum()==0)
+
+def test_cm_who_went_to_institute_last_year_wont_show_up(tpt_analyzer_with_cm_who_went_to_institute_last_year):
+	analyzer = tpt_analyzer_with_cm_who_went_to_institute_last_year
+	df = analyzer.cm_history_cleaned.set_index('pid')
+	assert(df.index.isin([0]).sum()==0)
+
+def test_count_active_by_week_national(tpt_analyzer_with_active_cm_by_week):
+	analyzer = tpt_analyzer_with_active_cm_by_week
+	analyzer.count_active_cms_by_week()
+	df = analyzer.count_of_active_cms_by_week
+	assert(df.loc[('National',0),'count']==2)
+	assert(df.loc[('National',3),'count']==3)
+	assert(df.loc[('National',5),'count']==1)
+
+def test_cm_departure_list(tpt_analyzer_with_sample_data_for_list):
+	analyzer = tpt_analyzer_with_sample_data_for_list
+	analyzer.count_by_release_code()
+	df = analyzer.list_of_exited_cms
+	assert( set(df.columns) >= set(['pid','first_name','last_name','institute','release_date','release_code','week']))
+	assert(len(df.index)==1)
+
+def test_cm_transfer_out_list(tpt_analyzer_with_sample_data_for_list):
+	analyzer = tpt_analyzer_with_sample_data_for_list
+	analyzer.count_transfers()
+	df = analyzer.list_of_transfer_cms
+	assert( set(df.columns) >= set(['pid','first_name','last_name','institute','week','transfer_type']))
+	assert(len(df.index)==2)
+	assert(len(df.ix[(df.pid==1)&(df.transfer_type=='transfer_out')].index)==1)
+	assert(len(df.ix[(df.pid==1)&(df.transfer_type=='transfer_in')].index)==1)
+
+def test_cm_week_0_list(tpt_analyzer_with_sample_data_for_list):
+	analyzer = tpt_analyzer_with_sample_data_for_list
+	analyzer.compute_percent_active_by_week()
+	df = analyzer.list_of_week_0_cms.set_index(['pid'])
+	assert( set(df.columns) >= set(['first_name','last_name','institute']))
+	assert( df.loc[1,'institute']=='Atlanta')
+	assert( df.loc[2,'institute']=='Chicago')

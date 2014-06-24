@@ -33,6 +33,10 @@ class TPTRetention(object):
 				cm_history_cleaned = cm_history_cleaned.ix[cm_history_cleaned.pid.isin(exit_data_cleaned.pid)]
 			if 'week' not in cm_history_cleaned.columns:
 				cm_history_cleaned = add_institute_week(cm_history_cleaned,institute_start_date_df)
+				if exit_data_cleaned is not None and 'step' in cm_history_cleaned.columns:
+					all_cms = pd.Series(cm_history_cleaned.pid.unique())
+					cms_without_any_data_while_institute_in_session = all_cms.ix[~all_cms.isin(cm_history_cleaned.ix[cm_history_cleaned.week > 0,'pid'])]
+					cm_history_cleaned.ix[cm_history_cleaned.pid.isin(cms_without_any_data_while_institute_in_session) & cm_history_cleaned.pid.isin(exit_data_cleaned.pid) & (cm_history_cleaned.step=='INSTREG') & (cm_history_cleaned.week > -10),'week']=1
 				cm_history_cleaned = filter_for_started(cm_history_cleaned)
 				cm_history_cleaned = cm_history_cleaned.ix[cm_history_cleaned.institute.isin(institute_start_date_df.institute)]
 
@@ -44,6 +48,7 @@ class TPTRetention(object):
 		assert hasattr(self,'exit_data_cleaned') and self.exit_data_cleaned is not None
 		assert set(self.exit_data_cleaned.columns) >= set(['institute','week','release_code','pid'])
 		self.release_code_count_by_institute_week = pd.DataFrame(self.exit_data_cleaned.groupby(['institute','week','release_code']).count().rename(columns={'pid':'count'})['count'])
+		self.list_of_exited_cms = self.exit_data_cleaned.ix[self.exit_data_cleaned.release_code.notnull(),['pid','first_name','last_name','institute','release_code','release_date','week']].sort(['institute','week','release_code'])
 		return self
 
 	def fill_extra_weeks(self, df):
@@ -102,6 +107,12 @@ class TPTRetention(object):
 			self.mark_notable_institute_assignment_records()
 		self.transfer_in_count_by_institute_week = pd.DataFrame({'count':self.cm_history_cleaned.ix[self.cm_history_cleaned.is_transfer_in].groupby(['institute','week']).size()})
 		self.transfer_out_count_by_institute_week = pd.DataFrame({'count':self.cm_history_cleaned.ix[self.cm_history_cleaned.is_transfer_out].groupby(['institute','week']).size()})
+		df = self.cm_history_cleaned.copy()
+		transfer_out_cms = df.ix[df.is_transfer_out,['pid','first_name','last_name','institute','week']]
+		transfer_in_cms = df.ix[df.is_transfer_in,['pid','first_name','last_name','institute','week']]
+		transfer_out_cms['transfer_type'] = 'transfer_out'
+		transfer_in_cms['transfer_type'] = 'transfer_in'
+		self.list_of_transfer_cms = pd.concat([transfer_out_cms,transfer_in_cms]).sort(['institute','week','transfer_type'])
 		return self
 
 	def find_useful_institute_records(self):
@@ -174,7 +185,13 @@ class TPTRetention(object):
 	def count_active_cms_by_week(self):
 		if not hasattr(self,'active_cms_by_week') or self.active_cms_by_week is None:
 			self.create_active_cms_by_week()
-		self.count_of_active_cms_by_week = pd.DataFrame(self.active_cms_by_week.groupby(['institute','week']).count().rename(columns={'pid':'count'})['count'])
+		national_df= self.active_cms_by_week.copy()
+		national_df['institute'] = "National"
+		institute_count = pd.DataFrame(self.active_cms_by_week.groupby(['institute','week']).count().rename(columns={'pid':'count'})['count'])
+		national_count = pd.DataFrame(national_df.groupby(['institute','week']).count().rename(columns={'pid':'count'})['count'])
+		self.count_of_active_cms_by_week = pd.concat([institute_count,national_count])
+		if hasattr(self,'cm_history_cleaned') and self.cm_history_cleaned is not None:
+			self.list_of_week_0_cms = self.active_cms_by_week.ix[self.active_cms_by_week.week==0,['pid','institute']].set_index('pid').join(self.cm_history_cleaned.ix[:,['pid','first_name','last_name']].drop_duplicates().set_index('pid')).reset_index()
 		return self
 
 	def compute_percent_active_by_week(self):
@@ -187,6 +204,7 @@ class TPTRetention(object):
 		df['value'] = df['count']/df.wk0_count
 		df = df.reset_index()
 		self.percent_active_by_week = pd.DataFrame(df,columns=['institute','week','value']).set_index(['institute','week'])
+
 		return self
 
 	def create_formatted_table(self):

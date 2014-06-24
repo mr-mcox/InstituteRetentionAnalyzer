@@ -2,9 +2,11 @@ import pandas as pd
 
 def rename_cmpp_columns(df):		
 	column_map = {
-		"Person Id"		                                                   : 'pid',
-		"Status"		                                                   : 'release_code',
-		"Date (that CM showed up at institute or that they departed)"	   : 'release_date',
+		"Person Id"		                                                  : 'pid',
+		"First Name"		                                              : 'first_name',
+		"Last Name"		                                                  : 'last_name',
+		"Status"		                                                  : 'release_code',
+		"Date (that CM showed up at institute or that they departed)"	  : 'release_date',
 	}
 	return df.rename(columns=column_map)
 

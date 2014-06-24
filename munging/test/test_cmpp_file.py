@@ -3,9 +3,9 @@ import pandas as pd
 import datetime
 
 def test_rename_cmpp_columns():
-	orig_df = pd.DataFrame(columns = ["Person Id", "Status", "Date (that CM showed up at institute or that they departed)"])
+	orig_df = pd.DataFrame(columns = ["Person Id", "Status", "Date (that CM showed up at institute or that they departed)","First Name","Last Name"])
 	new_df = rename_cmpp_columns(orig_df)
-	assert(set(new_df.columns) == set(['pid','release_code','release_date']))
+	assert(set(new_df.columns) == set(['pid','release_code','release_date','first_name','last_name']))
 
 def test_add_er_pending():
 	df = pd.DataFrame({
