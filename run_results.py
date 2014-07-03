@@ -6,7 +6,7 @@ from InstituteRetentionAnalyzer.analyzer.analyzer_for_tpt import TPTRetention
 exit_data_cleaned       = rename_bobj_columns(pd.read_excel('institute_retention_and_transfers.xlsx','release_status'))
 cm_history_cleaned      = rename_bobj_columns(pd.read_excel('institute_retention_and_transfers.xlsx','multiple_institutes'))
 cmpp_data_cleaned       = rename_cmpp_columns(pd.read_excel('cm.master.tracker.xlsx','Total'))
-institute_start_date_df = pd.read_excel('institute_start_date.xlsx',0)
+institute_start_date_df = pd.read_excel('institute_start_date.xlsx',"institute_start_date.csv")
 
 analyzer = TPTRetention(
 		exit_data_cleaned = exit_data_cleaned,

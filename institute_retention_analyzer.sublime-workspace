@@ -4,6 +4,202 @@
 		"selected_items":
 		[
 			[
+				"re",
+				"reset_index"
+			],
+			[
+				"tran",
+				"transfer_out"
+			],
+			[
+				"is_",
+				"is_transfer_out"
+			],
+			[
+				"tra",
+				"transfer_type"
+			],
+			[
+				"la",
+				"last_name"
+			],
+			[
+				"rel",
+				"release_date"
+			],
+			[
+				"date",
+				"release_date"
+			],
+			[
+				"first",
+				"first_name"
+			],
+			[
+				"all",
+				"all_cms	(local, instance)"
+			],
+			[
+				"relea",
+				"release_code"
+			],
+			[
+				"new",
+				"new_df"
+			],
+			[
+				"cm_",
+				"cm_history_cleaned"
+			],
+			[
+				"hist",
+				"cm_history_cleaned"
+			],
+			[
+				"in",
+				"institute_start_date_df	(local, instance)"
+			],
+			[
+				"value",
+				"value_type"
+			],
+			[
+				"val",
+				"value_type"
+			],
+			[
+				"valu",
+				"value_order"
+			],
+			[
+				"rele",
+				"release_code"
+			],
+			[
+				"release",
+				"release_code"
+			],
+			[
+				"inst",
+				"institute"
+			],
+			[
+				"cou",
+				"count_active_cms_by_week"
+			],
+			[
+				"next",
+				"next_index"
+			],
+			[
+				"curr",
+				"current_institute"
+			],
+			[
+				"cur",
+				"cur_index"
+			],
+			[
+				"not",
+				"notnull"
+			],
+			[
+				"start",
+				"start_week"
+			],
+			[
+				"reset",
+				"reset_index"
+			],
+			[
+				"is_tra",
+				"is_transfer_in"
+			],
+			[
+				"Dat",
+				"DataFrame"
+			],
+			[
+				"cmpp",
+				"cmpp_file"
+			],
+			[
+				"cmpp_",
+				"cmpp_data_cleaned"
+			],
+			[
+				"cm",
+				"cm_history_cleaned	(local, instance)"
+			],
+			[
+				"cmp",
+				"cmpp_data_cleaned"
+			],
+			[
+				"exit",
+				"exit_data_cleaned	(local, instance)"
+			],
+			[
+				"exit_",
+				"exit_data_cleaned"
+			],
+			[
+				"ins",
+				"institute"
+			],
+			[
+				"star",
+				"start_week"
+			],
+			[
+				"from",
+				"from_records"
+			],
+			[
+				"current",
+				"current_institute"
+			],
+			[
+				"res",
+				"reset_index"
+			],
+			[
+				"ind",
+				"index_i"
+			],
+			[
+				"hi",
+				"history_id"
+			],
+			[
+				"is",
+				"is_transfer_in"
+			],
+			[
+				"previ",
+				"previous_pid"
+			],
+			[
+				"pre",
+				"previous_pid"
+			],
+			[
+				"previous",
+				"previous_index"
+			],
+			[
+				"releas",
+				"release_date"
+			],
+			[
+				"set",
+				"set_index"
+			],
+			[
+				"colu",
+				"columns"
+			],
+			[
 				"Da",
 				"DataFrame"
 			],
@@ -28,10 +224,6 @@
 				"num_rows"
 			],
 			[
-				"new",
-				"new_values"
-			],
-			[
 				"new_",
 				"new_values"
 			],
@@ -42,10 +234,6 @@
 			[
 				"que",
 				"question_table"
-			],
-			[
-				"re",
-				"responses"
 			],
 			[
 				"rs",
@@ -132,20 +320,12 @@
 				"return_table"
 			],
 			[
-				"value",
-				"value_strings"
-			],
-			[
 				"form",
 				"format_string"
 			],
 			[
 				"inpu",
 				"input_heading"
-			],
-			[
-				"inst",
-				"integer_string_length"
 			],
 			[
 				"lg",
@@ -200,20 +380,8 @@
 				"demographic_data"
 			],
 			[
-				"res",
-				"results"
-			],
-			[
 				"agg",
 				"aggregation_value"
-			],
-			[
-				"colu",
-				"columns"
-			],
-			[
-				"all",
-				"all_aggregations"
 			],
 			[
 				"create",
@@ -308,10 +476,6 @@
 				"example_one"
 			],
 			[
-				"not",
-				"not_included_label"
-			],
-			[
 				"d",
 				"dimensions"
 			],
@@ -336,14 +500,6 @@
 				"Dimension"
 			],
 			[
-				"in",
-				"integer_strings"
-			],
-			[
-				"la",
-				"labels"
-			],
-			[
 				"integer",
 				"integer_strings"
 			],
@@ -358,52 +514,32 @@
 			[
 				"inte",
 				"integer_string"
-			],
-			[
-				"Di",
-				"Dimensions"
-			],
-			[
-				"title",
-				"title"
-			],
-			[
-				"net_",
-				"net_formatted_values"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "munging/institute_week.py",
+			"file": "analyzer/test/test_analyzer_for_tpt.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 23683,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "munging/test/test_institute_week.py",
+			"file": "analyzer/analyzer_for_tpt.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 13709,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "munging/test/test_reformat_bobj.py",
+			"file": "run_results.py",
 			"settings":
 			{
-				"buffer_size": 64,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "munging/reformat_bobj.py",
-			"settings":
-			{
-				"buffer_size": 0,
+				"buffer_size": 1615,
 				"line_ending": "Unix"
 			}
 		}
@@ -411,15 +547,19 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 87.0,
+		"height": 167.0,
 		"selected_items":
 		[
+			[
+				"git com",
+				"Git: Commit"
+			],
 			[
 				"git push",
 				"Git: Push"
 			],
 			[
-				"git com",
+				"git ",
 				"Git: Commit"
 			],
 			[
@@ -427,8 +567,36 @@
 				"Git: Add..."
 			],
 			[
+				"git",
+				"Git: Commit"
+			],
+			[
+				"gi ",
+				"Git: Commit"
+			],
+			[
 				"git comm",
 				"Git: Commit"
+			],
+			[
+				"git ad",
+				"Git: Add..."
+			],
+			[
+				"",
+				"AlignTab"
+			],
+			[
+				"ali",
+				"AlignTab: Live Preview Mode"
+			],
+			[
+				"alig",
+				"AlignTab"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
 			],
 			[
 				"git add .",
@@ -437,10 +605,6 @@
 			[
 				"cucu",
 				"Gherkin/Cucumber: Format"
-			],
-			[
-				"git ad",
-				"Git: Add..."
 			],
 			[
 				"task",
@@ -455,10 +619,6 @@
 				"Gherkin/Cucumber: Format"
 			],
 			[
-				"git",
-				"Git: Commit"
-			],
-			[
 				"git sat",
 				"Git: Status"
 			],
@@ -469,10 +629,6 @@
 			[
 				"gher",
 				"Set Syntax: Gherkin"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"instll",
@@ -512,6 +668,20 @@
 	},
 	"file_history":
 	[
+		"/Users/mcox/Dropbox/MDIS/Collaborative building/Execution 2014/analysis/code/grade_subject_inspection.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/reformat_bobj.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/test/test_reformat_bobj.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/run_results.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/cmpp_file.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/test/test_cmpp_file.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/institute_week.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/analyzer/filter.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/test/test_institute_week.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/analyzer/test/test_filter.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/analyzer/aggregate_retention.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/analyzer/test/test_aggregate_retention.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/__init__.py",
+		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/__init__.py",
 		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/reformating.py",
 		"/Users/mcox/Dropbox/MDIS/Code/Python/SurveyReportingSystem/CalculationCoordinator/.DS_Store",
 		"/Users/mcox/Dropbox/MDIS/Code/Python/SurveyReportingSystem/ConfigurationReader/features/steps/load_cut_definitions_steps.py",
@@ -584,13 +754,14 @@
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 37.0
 	},
 	"find_in_files":
 	{
 		"height": 0.0,
 		"where_history":
 		[
+			"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer",
 			"/Users/mcox/Dropbox/MDIS/Code/Python/SurveyReportingSystem",
 			"/Users/mcox/Dropbox/MDIS/Code/Python/SurveyReportingSystem,C:\\Users\\mcox\\Dropbox\\MDIS\\Code\\Python\\SurveyReportingSystem",
 			"/Users/mcox/Dropbox/MDIS/Code/Python/SurveyReportingSystem"
@@ -601,6 +772,120 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"list_of_exited_cms",
+			"list_of_week_0_cms",
+			"list_of_exited_cms",
+			"out",
+			"rosner",
+			"self.active_cms_by_week",
+			"count_active_cms_by_week",
+			"10",
+			"tpt_analyzer_with_active_cm_by_week",
+			"filter",
+			"==6",
+			", 5",
+			",5",
+			"active_percent",
+			"axx",
+			"count",
+			"count_of_active_cms_by_week",
+			"percent_active_by_week",
+			"transfer_out_count_by_institute_week",
+			"in",
+			"transfer_in_count",
+			"count_of_active_cms_by_week",
+			"release_code_count_by_institute_week",
+			"count_by_release_code",
+			"count_active_cms_by_week",
+			"active_cms_by_week",
+			"compute_percent_active_by_week",
+			"inst",
+			"institute",
+			"count_active_cms_by_week",
+			"loc",
+			"next_index",
+			"tpt_analyzer_with_cm_that_has_start_week_then_transfer",
+			"test_cm_institute_boundaries_for_first_institute_then_transfer",
+			"tpt_analyzer_with_institute_transfer_and_resignation",
+			"release_date",
+			"er_start_date",
+			"fill_in_release_date",
+			"df.loc[idx,'start_week']",
+			"start",
+			"exit_data_cleaned",
+			"cm_history_cleaned",
+			"tpt_analyzer_with_one_cm_transfer",
+			"exit_data_cleaned",
+			"cm_history_cleaned",
+			"exit_data_cleaned",
+			"reformat_bobj",
+			"exit_data_cleaned",
+			"cm_institute_boundaries",
+			"active_cms_by_week",
+			"useful_institute_records",
+			"cm_institute_boundaries",
+			"exit_data_cleaned",
+			"useful_institute_records",
+			"exit_data_cleaned",
+			"institute_start_date_df",
+			"exit_data_cleaned",
+			"cm_history_cleaned",
+			"rename_columns",
+			"release_code_count_by_institute_week",
+			"count_of_active_cms_by_week",
+			"count_active_cms_by_week",
+			"cm_history_cleaned",
+			"cmpp_data_cleaned",
+			"institute_retention_and_transfers",
+			"release_status",
+			"exit_data_cleaned",
+			"cm_history_cleaned",
+			"institute_start_date_df",
+			"exit_data_cleaned",
+			"add_institute_week",
+			"exit_data_cleaned",
+			"tpt_analyzer_with_institute_transfer_and_resignation",
+			"create_cm_institute_boundaries",
+			"create_active_cms_by_week",
+			"count_active_cms_by_week",
+			"tpt_analyzer_with_active_cm_by_week",
+			"pid",
+			"df",
+			"find_useful_institute_records",
+			"useful_institute_records",
+			"create_active_cms_by_week",
+			"df",
+			"analyzer",
+			"tpt_analyzer_with_cm_boundary",
+			"cm_institute_boundaries",
+			"tpt_analyzer_with_institute_transfer_and_resignation",
+			"df_bound",
+			"True",
+			"find_useful_institute_records",
+			"Phoenix",
+			"None",
+			"all",
+			"Chicago",
+			"(,",
+			"date",
+			"empty_tpt_analyzer",
+			"Atlanta",
+			"institute_start_date",
+			"tpt_analyzer_with_institute_transfers",
+			"Chicago",
+			"Atlanta",
+			"release_code_count",
+			"in",
+			"sum",
+			"reformat_bobj",
+			"x",
+			"numpy",
+			"=",
+			":",
+			",",
+			"(\\w[a-zA-z\\s]+)",
+			"([a-zA-z\\s]+),",
+			"[a-zA-z\\s]+,",
 			"cuts_4",
 			"cuts_3",
 			"menu",
@@ -614,128 +899,18 @@
 			"corps",
 			",",
 			"'",
-			"convert_types_for_db",
-			"df_to_dict_array",
-			"local",
-			"engine_1",
-			"local",
-			"categorical_calculation_samp_size",
-			"sample_size",
-			"blank",
-			"result_TYPE",
-			"signif",
-			"stat",
-			"add_pilot_cuts",
-			"pilot",
-			"rows writt",
-			"hist_results",
-			"survey",
-			"question_map",
-			"numerical_responses",
-			"reflection",
-			"Duplicate",
-			"historical",
-			"calculato",
-			"dynamic_parent_dimension",
-			"dynamic",
-			"there is not a row",
-			"value",
-			"results",
-			"src_ws_name",
-			"dest_wb",
-			"get",
-			"ws1",
-			"WB1",
-			"wb1",
-			"get_active",
-			"get_integer_string_mapping",
-			"mappings_to_output",
-			"row_heading",
-			"loggin.debug",
-			"loggin.deb",
-			"zero_integer_string",
-			"replace_dimensions_with_integers",
-			"adjust_zero_padding_of_heading",
-			"create_row_column_headers",
-			"adjust_zero_padding_of_heading",
-			"return_table",
-			"all_aggregations",
-			"apply",
-			"format_string",
-			" \n",
-			"adjust_zero_padding_of_heading",
-			"pass",
-			"results for",
-			"dimension_integer_mapping",
-			"get_highest_row",
-			"default_menu",
-			"cuts_head",
-			"cuts",
-			"default_menu",
-			"cuts",
-			"cuts_config",
-			"dv_ws",
-			"cuts",
-			"disp_value_row_head",
-			"dis_value_cuts_headvalues",
-			"dis_value_values",
-			"disp_valuecuts_config_col_head",
-			"E5",
-			"B2",
-			"end_col",
-			"disp_value_row_head",
-			"dis_value_values",
-			"A2",
-			"disp_value_row_head",
-			"disp_value_col_head",
-			"disp_value_row_head",
-			"master_aggregation",
-			"first_refirst_question_codesult_type",
-			"first_question_code",
-			"result_type",
-			"dict_for_df",
-			"None",
-			"list_to_add_onto",
-			"first_result_type",
-			"value_list",
-			"value_set",
-			"cur_cut",
-			"compute net with cut_demographic = region and gender is run",
-			"Male",
-			"cc",
-			"compute_cuts_from_config",
-			"master_aggregation row_headers has six rows",
-			"a set of calculations generated with region and gender and with integer labels",
-			"values_by_column",
-			"current_index",
-			"Then same number of unique values in dimension columns exists before and after",
-			"create row and column headers is run",
-			"computations generated that include a cut by gender and a cut by region with duplicates",
-			"	context.coordinator = CalculationCoordinator()\n	context.computations_generated_1 = pd.DataFrame({'question_code':[0,1,1],'gender':['Male','Female',\"Male\"]})\n	context.computations_generated_2 = pd.DataFrame({'question_code':[0,1,1],'region':['Atlanta','Atlanta',\"SoDak\"]",
-			"context.results.append(context.coordinator.replace_dimensions_with_integers(context.coordinator.computations_generated_1))",
-			"(?<=Given |When | Then ).+",
-			"it returns every combination of each of the dimensions being used or not used",
-			"cuts",
-			"re-form",
-			"and",
-			"compute_aggregation",
-			"number_of_levels",
-			"one",
-			"provided",
-			"name",
-			"context.result",
-			"ConfigurationReader",
-			"dimension",
-			"Dimension",
-			"Ethnicity",
-			"has the title ethnicity"
+			"convert_types_for_db"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
+			",7",
+			"rename_bobj_columns",
+			"rename_cmpp_columns",
+			"release_code_count_by_institute_week",
 			""
 		],
 		"reverse": false,
@@ -752,250 +927,27 @@
 			[
 				{
 					"buffer": 0,
-					"file": "munging/institute_week.py",
+					"file": "analyzer/test/test_analyzer_for_tpt.py",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 23683,
 						"regions":
 						{
+							"bookmarks":
+							{
+								"flags": 144,
+								"icon": "bookmark",
+								"regions":
+								[
+								],
+								"scope": "bookmarks"
+							}
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"_anf_new": "",
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110.0
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2.0,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "munging/test/test_institute_week.py",
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"_anf_new": "",
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110.0
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2.0,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "munging/test/test_reformat_bobj.py",
-					"settings":
-					{
-						"buffer_size": 64,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3,
-								3
+								23487,
+								23505
 							]
 						],
 						"settings":
@@ -1194,38 +1146,143 @@
 								"Ruby on Rails": "ruby"
 							},
 							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/Python/Python.tmLanguage"
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 7216.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "munging/reformat_bobj.py",
+					"buffer": 1,
+					"file": "analyzer/analyzer_for_tpt.py",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 13709,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								11002,
+								11002
 							]
 						],
 						"settings":
 						{
+							"_anf_new": "",
 							"annotations":
 							[
 								"TODO",
 								"README",
 								"FIXME"
 							],
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
 							"csslint_options":
 							{
 								"adjoining-classes": "warning",
@@ -1287,6 +1344,227 @@
 							[
 							],
 							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 801.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "run_results.py",
+					"settings":
+					{
+						"buffer_size": 1615,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1615,
+								1615
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": true,
 							"sublimelinter": true,
 							"sublimelinter_delay": 2.0,
 							"sublimelinter_disable":
