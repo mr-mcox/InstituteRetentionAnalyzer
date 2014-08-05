@@ -190,6 +190,28 @@ def tpt_analyzer_with_no_show_input(institute_start_date_df):
 
 
 @pytest.fixture
+def tpt_analyzer_with_deferred_input(institute_start_date_df):
+	exit_data_cleaned = pd.DataFrame({
+		'pid'           : [0,1],
+		'release_code'  : ['RESIGNED','DEFERRED'],
+		'release_date'  : [datetime(2014,6,1),datetime(2014,6,1)],
+		'er_start_date' : [datetime(2014,6,1),datetime(2014,6,1)],
+		'institute'     : ["Atlanta","Atlanta"],
+
+									})
+
+	cm_history_cleaned = pd.DataFrame({
+		'pid'                      : [0,1],
+		'release_code'             : ['RESIGNED','DEFERRED'],
+		'history_record_timestamp' : [datetime(2014,6,1),datetime(2014,6,1)],
+		'history_id'               : [0,1],
+		'institute'                : ["Atlanta","Atlanta"],
+
+									})
+	analyzer = TPTRetention(exit_data_cleaned=exit_data_cleaned,institute_start_date_df=institute_start_date_df,cm_history_cleaned=cm_history_cleaned)
+	return analyzer
+
+@pytest.fixture
 def tpt_analyzer_with_history_without_step(institute_start_date_df):
 	cm_history_cleaned = pd.DataFrame({
 		'pid'                      : [0,1],
@@ -482,6 +504,10 @@ def test_create_formatted_table(tpt_analyzer_with_computations):
 def test_filter_out_no_shows(tpt_analyzer_with_no_show_input):
 	analyzer = tpt_analyzer_with_no_show_input
 	assert(len(analyzer.exit_data_cleaned.ix[analyzer.exit_data_cleaned.release_code=='NOSHOW'].index)==0)
+
+def test_filter_out_deferred(tpt_analyzer_with_deferred_input):
+	analyzer = tpt_analyzer_with_deferred_input
+	assert(len(analyzer.exit_data_cleaned.ix[analyzer.exit_data_cleaned.release_code=='DEFERRED'].index)==0)
 
 def test_cms_not_in_exit_code_removed_from_history(tpt_analyzer_with_no_show_input):
 	analyzer = tpt_analyzer_with_no_show_input

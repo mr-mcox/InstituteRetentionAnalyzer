@@ -18,7 +18,7 @@ class TPTRetention(object):
 
 		if exit_data_cleaned is not None:
 			assert 'release_code' in exit_data_cleaned.columns
-			exit_data_cleaned = exit_data_cleaned.ix[~(exit_data_cleaned.release_code=="NOSHOW")]
+			exit_data_cleaned = exit_data_cleaned.ix[~((exit_data_cleaned.release_code=="NOSHOW")|(exit_data_cleaned.release_code=="DEFERRED"))]
 			if 'week' not in exit_data_cleaned.columns:
 				exit_data_cleaned = fill_in_release_date(exit_data_cleaned)
 				exit_data_cleaned = add_institute_week(exit_data_cleaned,institute_start_date_df)

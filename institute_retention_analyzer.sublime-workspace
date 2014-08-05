@@ -539,7 +539,7 @@
 			"file": "run_results.py",
 			"settings":
 			{
-				"buffer_size": 1615,
+				"buffer_size": 1640,
 				"line_ending": "Unix"
 			}
 		}
@@ -547,19 +547,19 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 167.0,
+		"height": 87.0,
 		"selected_items":
 		[
 			[
-				"git com",
-				"Git: Commit"
+				"align",
+				"AlignTab"
 			],
 			[
 				"git push",
 				"Git: Push"
 			],
 			[
-				"git ",
+				"git comm",
 				"Git: Commit"
 			],
 			[
@@ -567,15 +567,19 @@
 				"Git: Add..."
 			],
 			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git ",
+				"Git: Commit"
+			],
+			[
 				"git",
 				"Git: Commit"
 			],
 			[
 				"gi ",
-				"Git: Commit"
-			],
-			[
-				"git comm",
 				"Git: Commit"
 			],
 			[
@@ -668,6 +672,8 @@
 	},
 	"file_history":
 	[
+		"/Users/mcox/Dropbox/MDIS/tmp/liner_notes/styles.css",
+		"/Users/mcox/Dropbox/MDIS/tmp/liner_notes/liner_notes.html",
 		"/Users/mcox/Dropbox/MDIS/Collaborative building/Execution 2014/analysis/code/grade_subject_inspection.py",
 		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/reformat_bobj.py",
 		"/Users/mcox/Dropbox/MDIS/Code/Python/InstituteRetentionAnalyzer/munging/test/test_reformat_bobj.py",
@@ -772,6 +778,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"<tr><td[^>]*>[^<]*</td><td[^>]*>[^<]*</td><td",
+			"<tr><td[^>]*>[^<]*</td?><td",
+			"what",
+			"<tr><td",
+			"<tr><td>",
+			"<tr><th>Artist</th><th>Song Title</th><th>Person Name</th><th>Message</th></tr>",
 			"list_of_exited_cms",
 			"list_of_week_0_cms",
 			"list_of_exited_cms",
@@ -893,13 +905,7 @@
 			"cuts",
 			"basic_static_cuts",
 			"ConfigurationReader",
-			"for_excel_export.feature",
-			"context.",
-			"coordinator_with_net_formatted_values",
-			"corps",
-			",",
-			"'",
-			"convert_types_for_db"
+			"for_excel_export.feature"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1150,7 +1156,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7216.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1167,8 +1173,8 @@
 						"selection":
 						[
 							[
-								11002,
-								11002
+								11082,
+								11083
 							]
 						],
 						"settings":
@@ -1370,7 +1376,7 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 801.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -1381,15 +1387,15 @@
 					"file": "run_results.py",
 					"settings":
 					{
-						"buffer_size": 1615,
+						"buffer_size": 1640,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1615,
-								1615
+								690,
+								690
 							]
 						],
 						"settings":
